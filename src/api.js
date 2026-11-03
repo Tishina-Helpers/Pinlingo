@@ -1,0 +1,6 @@
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import Constants from 'expo-constants';
+const BASE=(process.env.EXPO_PUBLIC_API_URL||Constants.expoConfig?.extra?.apiUrl||'http://localhost:4000').replace(/\/$/,'');
+const KEY='pinlingo_token';
+async function call(path,opts={}){const token=await AsyncStorage.getItem(KEY);const r=await fetch(BASE+path,{...opts,headers:{'Content-Type':'application/json',...(token?{Authorization:'Bearer '+token}:{}),...(opts.headers||{})}});const d=await r.json().catch(()=>({}));if(!r.ok)throw Error(d.message||'Server error');return d;}
+export const api={register:async body=>{const d=await call('/api/auth/register',{method:'POST',body:JSON.stringify(body)});await AsyncStorage.setItem(KEY,d.token);return d.user;},login:async body=>{const d=await call('/api/auth/login',{method:'POST',body:JSON.stringify(body)});await AsyncStorage.setItem(KEY,d.token);return d.user;},me:()=>call('/api/auth/me'),logout:()=>AsyncStorage.removeItem(KEY),courses:()=>call('/api/courses'),addCourse:language=>call('/api/courses',{method:'POST',body:JSON.stringify({language})}),lesson:(id,n)=>call('/api/lessons/'+id+'/'+n),complete:body=>call('/api/progress/complete',{method:'POST',body:JSON.stringify(body)})};
