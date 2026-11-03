@@ -12,6 +12,13 @@
       "bundler": "metro",
       "name": "Pinlingo",
       "shortName": "Pinlingo"
-    }
+    },
+    "extra": {
+      "eas": {
+        "projectId": "5de1bd2d-475f-4e31-b4b1-fd4a108d981d"
+      },
+      "apiUrl": "https://pinlingo-api.onrender.com"
+    },
+    "owner": "ponlingo"
   }
 }
