@@ -1,0 +1,17 @@
+{
+  "expo": {
+    "name": "Pinlingo",
+    "slug": "pinlingo",
+    "version": "1.0.0",
+    "orientation": "default",
+    "userInterfaceStyle": "dark",
+    "android": {
+      "package": "com.pinlingo.app"
+    },
+    "web": {
+      "bundler": "metro",
+      "name": "Pinlingo",
+      "shortName": "Pinlingo"
+    }
+  }
+}
